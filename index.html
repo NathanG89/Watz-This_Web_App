@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!--apple meta tag data-->
+    <meta name="apple-mobile-web-app-capable" content="yes">   
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/h/apple-touch-icon.png">
+    <link rel="apple-touch-startup-image" href="img/l/splash.png">
+    <!--Web App Title-->
+    <title>WatzThis?</title>
+    <!--meta data for mobile device optimization-->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+        
+    <script>
+    //Javascript variables
+    var light = new Array();
+    var t;
+    var color=0;
+    var textcolor=2;
+    var headercolor=2;
+    var flipping=0;
+    var speed=100;
+    //Inputs for color array
+    light[0] = 'black';
+    light[1] = 'white';
+    light[2] = 'red';
+    light[3] = 'aqua';
+    light[4] = 'orange';
+    light[5] = 'gold';
+    light[6] = 'green';
+    light[7] = 'peachpuff';
+    light[8] = 'plum';
+    //function that changes the background color based on "whichway" variable value
+    function flip(whichway){
+      document.bgColor = light[whichway];
+      stopFlip();
+    }
+    //automatically flips through list of colors in color array
+    function autoFlip(speed){
+        document.bgColor= light[color];
+        if(color < light.length-1){
+            color++;
+        }else{
+            color=2;
+        }
+        t = setTimeout("autoFlip(speed)",speed);
+    }
+    //initializes auto flipping function
+    function doAutoFlip(speed){
+        if(!flipping){
+            flipping=1;
+            color=2;
+            autoFlip(speed);
+        }
+    }
+    //stops auto flipping function
+    function stopFlip(){
+        clearTimeout(t);
+        flipping=0;
+    }
+    //alters the delay between colors while the auto flipping function is active
+    function speedControl(newSpeed){
+        speed=newSpeed;
+    }
+    //alters the color of the text in the directions section
+    function changeDirectionsColor(){
+      document.getElementById("directions").style.color=light[textcolor];
+      if (textcolor === 0){textcolor = 2;}
+      else if (textcolor < light.length-1){textcolor++;}
+      else{textcolor=0;}
+    }
+    //alters the color of the header
+    function changeHeaderColor(){
+      document.getElementById("header1").style.color=light[headercolor];
+      if (headercolor === 0){headercolor = 2;}
+      else if (headercolor < light.length-1){headercolor++;}
+      else{headercolor=0;}
+    }
+    //loops through all the colors once
+    function singleLoop(speed){
+      document.bgColor= light[color];
+      if(color < light.length-1){
+          color++;
+          t = setTimeout("singleLoop(speed)",speed); //moved from beneath the else statement to inside the if statement
+      }else{
+          clearTimeout(t);
+          flipping=0;
+      }
+    }
+    //triggers the single loop function
+    function doSingleLoop(speed){
+      if(!flipping){
+        flipping=1;
+        color=0;
+        singleLoop(speed);
+      }
+    }
+    function getLoc(){
+
+      var gps = navigator.geolocation.getCurrentPosition(
+      function(position){
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        alert("Your Latitude is: " + latitude + " and your longitude is: " + longitude + "! Have fun!");
+      }
+      );
+    }
+    </script>
+    <style>
+    body{
+        text-align: center;
+    }
+    h1 {
+        font-family: Papyrus, fantasy; 
+    }
+    #container {}
+    #directions {
+        font-family: Calibri, sans-serif;
+        margin:4px;
+    }
+    #documentation, #flashlight, #danceparty {
+      font-family: "Arial Black", "Arial Bold", sans-serif;
+      margin:4px;
+    }
+     ol {
+      display: inline-block;
+      margin: 0 auto;
+      text-align: left;
+     }
+     .button {
+        font-size:24px;
+     }
+     .bigButton {
+        font-size:30px;
+    }
+    
+    #ON {background-color: GREEN;}
+    #OFF {background-color: GREEN;}
+    #AUTO {background-color: AQUA;}
+    #STOP {background-color: AQUA;}
+    #SINGLE {background-color: AQUA;}
+    #HEADER_COLOR {background-color: PLUM;}
+    #TEXT_COLOR {background-color: PLUM;}
+    </style>
+</head>
+
+<body>
+<div id="container">
+    <h1 id="header1">WatzThis?</h1>
+    <object width="100%" height="100px" data="animated_ghost.svg" type="image/svg+xml"></object>
+    <div id="directions">
+        <ol>
+            <li id="li1">Use the top row of buttons to turn the flashlight on or off.</li>
+            <li id="li2">Use the drop down menu in the second row to select a color for the background.</li>
+            <li id="li3">Use the 3rd row of buttons to start and stop the dance light auto flipping function, as well as setting the speed.</li>
+        </ol>
+    </div>
+    <div id="documentation">
+      <a  href="../Watz This/docs.html" target="_blank"><input type="button" id="document" class="button" value="DOCUMENTATION"></a><br>
+    </div>
+    <div id="flashlight">
+        <input type="button" id="ON" class="button" value="OFF" onclick="flip(0);">
+        <input type="button" id="OFF" class="button" value="ON" onclick="flip(1);"><br><br>
+        <select name="colors" onchange="flip(this.value)">
+            <option>choose a color</option>
+            <option value="2">RED</option>
+            <option value="3">AQUA</option>
+            <option value="4">ORANGE</option>
+            <option value="5">GOLD</option>
+            <option value="6">GREEN</option>
+            <option value="7">PEACHPUFF</option>
+            <option value="8">PLUM</option>
+        </select>
+        <br>
+    </div>
+    <div id="danceparty">
+      <input type="button" id="SINGLE" class="bigButton" value="Single Loop" onclick="doSingleLoop(speed);">
+        <input type="button" id="AUTO" class="bigButton" value="AUTO" onclick="doAutoFlip(speed);">
+        <input type="button" id="STOP" class="bigButton" value="STOP" onclick="stopFlip();">100
+        <input type="range" id="SPEED" min="100" max="1000" step="100" value=speed onchange="speedControl(this.value);">1000
+    </div>
+    <div id="geolocation"> 
+      <input type="button" id="latlong" class="bigButton" value="GET LOC" onclick="getLoc();">
+      <a href="../Watz This/geocaching.html" target="_blank"><input type="button" id="geocache" class="bigButton" value="GEOCACHING"></a>
+    </div>
+    <div id="style_settings">
+      <input type="button" id="HEADER_COLOR" class="bigButton" value="Header Color" onclick="changeHeaderColor();">
+      <input type="button" id="TEXT_COLOR" class="bigButton" value="Text Color" onclick="changeDirectionsColor();">
+    </div>
+</div>
+</body>
+</html>

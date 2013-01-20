@@ -1,0 +1,83 @@
+#content {
+      font-family: sans-serif;
+      position: absolute;
+}
+body{
+      background-image: url(http://www.geeknewscentral.com/wp-content/uploads/2009/05/lightbulb.jpg);
+      background-repeat: no-repeat;
+      background-position: top;
+      background-size: 800px;
+}
+h1{
+      text-shadow: 3px 2px grey;
+      color: red;
+      font-family: Papyrus, fantasy;
+}
+#header1{
+      position: relative;
+      animation: transition 5s;
+      animation-direction: alternate;
+      -moz-animation:transition 5s; /*Firefox*/
+      -moz-animation-direction: alternate;
+      -webkit-animation:transition 5s; /*Safari and Chrome*/
+      -webkit-animation-direction: alternate;
+      -o-animation:transition 5s; /*Opera*/
+      -o-animation-direction: alternate;
+}
+@keyframes transition{
+      0% {left: 100%;}
+      25% {left: 40%;}
+      75% {left: 60%;}
+      100% {left: 0%;}
+}
+@-webkit-keyframes transition /*Safari and Chrome*/
+{
+      0% {left: 100%;}
+      25% {left: 40%;}
+      75% {left: 60%;}
+      100% {left: 0%;}
+}
+@-o-keyframes transition /*Safari and Chrome*/
+{
+      0% {left: 100%;}
+      25% {left: 40%;}
+      75% {left: 60%;}
+      100% {left: 0%;}
+}
+@-moz-keyframes transition /*Safari and Chrome*/
+{
+      0% {left: 100%;}
+      25% {left: 40%;}
+      75% {left: 60%;}
+      100% {left: 0%;}
+}
+h2{
+      color: green;
+      font-family: monospace;
+      border:4px solid #a1a1a1;
+      padding:5px 30px; 
+      background:#dddddd;
+      width:300px;
+      border-radius:25px;
+}
+#image{
+      border:10px solid transparent;
+      width:300px;
+      padding:5px 5px;
+      -moz-border-image:url(rvision-1.gif) 100 100 stretch; /* Old Firefox */
+      -webkit-border-image:url(rvision-1.gif) 100 100 stretch; /* Safari */
+      -o-border-image:url(rvision-1.gif) 100 100 stretch; /* Opera */
+      border-image:url(rvision-1.gif) 100 100 stretch;
+      background: white;
+}
+p{
+      border: 10px;
+      width: 300px;
+      padding: 5px 5px;
+}
+figcaption{
+      border: 10px;
+      width: 300px;
+      padding: 5px 5px;
+}
+
